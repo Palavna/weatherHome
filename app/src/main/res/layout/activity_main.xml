@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:background="#666568"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".MainActivity">
+            tools:context=".ui.MainActivity">
 
             <TextView
                 android:id="@+id/dvaDev"
@@ -61,27 +61,29 @@
             android:id="@+id/countriesTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="22dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="18dp"
             app:layout_constraintTop_toBottomOf="@id/grey" />
 
         <EditText
             android:id="@+id/countriesEt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="28dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="18dp"
             app:layout_constraintTop_toBottomOf="@id/countriesTv" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycView"
             android:layout_width="match_parent"
             android:layout_height="122dp"
-            android:layout_marginStart="28dp"
+            android:layout_marginStart="18dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="horizontal"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="28dp"
+            android:layout_marginEnd="18dp"
             app:layout_constraintTop_toBottomOf="@id/countriesEt" />
 
         <ImageView

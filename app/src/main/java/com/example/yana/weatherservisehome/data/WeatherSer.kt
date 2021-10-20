@@ -1,4 +1,4 @@
-package com.example.yana.weatherservisehome
+package com.example.yana.weatherservisehome.data
 
 import retrofit2.Call
 import retrofit2.http.GET
@@ -19,5 +19,5 @@ import retrofit2.http.Query
         fun getCurrentCoordinates(
             @Query("appid") appId: String,
             @Query("q") city: String
-        ): Call<CurWeatherModel>
+        ): Call<MainCoordinModel>
     }

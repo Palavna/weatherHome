@@ -1,4 +1,4 @@
-package com.example.yana.weatherservisehome
+package com.example.yana.weatherservisehome.data
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

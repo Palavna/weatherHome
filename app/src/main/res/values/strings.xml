@@ -10,4 +10,5 @@
     <string name="cloudiness">Cloudiness</string>
     <string name="serch">Поиск</string>
     <string name="temperature">%1s °C</string>
+    <string name="title">title</string>
 </resources>

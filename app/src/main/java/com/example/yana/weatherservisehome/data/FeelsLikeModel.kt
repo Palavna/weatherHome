@@ -1,4 +1,4 @@
-package com.example.yana.weatherservisehome
+package com.example.yana.weatherservisehome.data
 
 import com.google.gson.annotations.SerializedName
 
