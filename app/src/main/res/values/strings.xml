@@ -3,12 +3,22 @@
     <string name="_29">29</string>
     <string name="may">May</string>
     <string name="_2019">2019</string>
+    <string name="serch">Поиск</string>
+    <string name="temperature">%1s °C</string>
+    <string name="title">title</string>
     <string name="now">Now</string>
+    <string name="little_cloud">Little Cloud</string>
+    <string name="today">Today</string>
+    <string name="max">Max</string>
+    <string name="sw_4m_s">SW 4m/s</string>
     <string name="wind">Wind</string>
     <string name="pressure">Pressure</string>
     <string name="humidity">Humidity</string>
     <string name="cloudiness">Cloudiness</string>
-    <string name="serch">Поиск</string>
-    <string name="temperature">%1s °C</string>
-    <string name="title">title</string>
+    <string name="sunrice">Sunrice</string>
+    <string name="air_quality_index">Air Quality Index</string>
+    <string name="air_quality">Air Quality</string>
+    <string name="_30">30</string>
+    <string name="good">Good</string>
+    <string name="sunset">Sunset</string>
 </resources>

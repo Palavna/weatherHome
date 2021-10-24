@@ -8,5 +8,6 @@ data class MainModel (
     @SerializedName("timezone") val timezone: String,
     @SerializedName("timezone_offset") val timezone_offset: Int,
     @SerializedName("current") val currentModel: CurWeatherModel,
+    @SerializedName("tempModel") val tempModel: TempModel,
     @SerializedName("daily") val dailyModel: List<DailyModel>
         )

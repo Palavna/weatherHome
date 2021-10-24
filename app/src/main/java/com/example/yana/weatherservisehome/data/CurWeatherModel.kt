@@ -12,7 +12,7 @@ data class CurWeatherModel(
     @SerializedName("humidity") val humidity: Int,
     @SerializedName("dew_point") val dew_point: Double,
     @SerializedName("uvi") val uvi: Double,
-//    @SerializedName("clouds") val clouds: Int,
+    @SerializedName("clouds") val clouds: Int,
     @SerializedName("visibility") val visibility: Int,
     @SerializedName("wind_speed") val wind_speed: Double,
     @SerializedName("wind_deg") val wind_deg: Int,

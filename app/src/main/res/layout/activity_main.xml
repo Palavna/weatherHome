@@ -57,171 +57,166 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/ic_location"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grey" />
+
         <TextView
             android:id="@+id/countriesTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="60dp"
             android:layout_marginTop="22dp"
-            android:layout_marginEnd="18dp"
+            android:layout_marginEnd="20dp"
             app:layout_constraintTop_toBottomOf="@id/grey" />
 
-        <EditText
-            android:id="@+id/countriesEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="18dp"
-            app:layout_constraintTop_toBottomOf="@id/countriesTv" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycView"
-            android:layout_width="match_parent"
-            android:layout_height="122dp"
-            android:layout_marginStart="18dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="18dp"
-            app:layout_constraintTop_toBottomOf="@id/countriesEt" />
 
         <ImageView
             android:id="@+id/sun"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="28dp"
             android:background="@drawable/ic_sun"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/countriesTv" />
+
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/nowView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/todayView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sun" />
+
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/todayView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/nowView"
+            app:layout_constraintTop_toBottomOf="@id/sun" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycView"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/nowView"
+            tools:itemCount="7"
+            tools:listitem="@layout/item_weather" />
+
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/windView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/pressureView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recycView" />
 
-        <TextView
-            android:id="@+id/now"
-            android:layout_width="wrap_content"
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/pressureView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingStart="26dp"
-            android:paddingTop="22dp"
-            android:text="@string/now"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/sun"
-            app:layout_constraintTop_toBottomOf="@id/sun"
-            tools:ignore="RtlSymmetry" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/windView"
+            app:layout_constraintTop_toBottomOf="@id/recycView" />
 
-        <TextView
-            android:id="@+id/gradus"
-            android:layout_width="wrap_content"
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/humidityView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="8dp"
-            android:padding="20dp"
-            android:paddingEnd="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/cloudView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/now"
-            tools:ignore="RtlSymmetry" />
+            app:layout_constraintTop_toBottomOf="@id/windView" />
 
-        <TextView
-            android:id="@+id/wind"
-            android:layout_width="wrap_content"
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/cloudView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/wind"
-            android:textColor="@color/black"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/humidityView"
+            app:layout_constraintTop_toBottomOf="@id/pressureView" />
+
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/sunriceView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/sunsetView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/gradus" />
+            app:layout_constraintTop_toBottomOf="@id/humidityView" />
 
-        <EditText
-            android:id="@+id/windResult"
-            android:layout_width="wrap_content"
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/sunsetView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginTop="8dp"
-            android:padding="14dp"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sunriceView"
+            app:layout_constraintTop_toBottomOf="@id/cloudView" />
+
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/airIndexView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@id/airQualityView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/wind" />
+            app:layout_constraintTop_toBottomOf="@id/sunriceView" />
 
-        <TextView
-            android:id="@+id/press"
+        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
+            android:id="@+id/airQualityView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/airIndexView"
+            app:layout_constraintTop_toBottomOf="@id/sunsetView" />
+
+        <ProgressBar
+            android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="124dp"
-            android:paddingTop="2dp"
-            android:text="@string/pressure"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@id/wind"
-            app:layout_constraintTop_toTopOf="@id/wind" />
-
-        <TextView
-            android:id="@+id/pressResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="140dp"
-            android:padding="20dp"
-            android:paddingEnd="90dp"
-            app:layout_constraintStart_toEndOf="@id/windResult"
-            app:layout_constraintTop_toTopOf="@id/windResult"
-            tools:ignore="RtlSymmetry" />
-
-        <TextView
-            android:id="@+id/humidity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="18dp"
-            android:text="@string/humidity"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/windResult" />
-
-        <TextView
-            android:id="@+id/cloud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:paddingTop="2dp"
-            android:text="@string/cloudiness"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/pressResult"
-            app:layout_constraintTop_toBottomOf="@id/pressResult" />
-
-        <EditText
-            android:id="@+id/hamidityResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="8dp"
-            android:padding="28dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/humidity" />
-
-        <EditText
-            android:id="@+id/cloudResult"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:padding="28dp"
-            app:layout_constraintStart_toStartOf="@id/cloud"
-            app:layout_constraintTop_toTopOf="@id/cloud" />
-
-        <Button
-            android:id="@+id/btnWeather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/serch"
+            android:layout_marginTop="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cloudResult" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

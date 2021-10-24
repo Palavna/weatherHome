@@ -8,12 +8,10 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.weatherservisehome.*
-import com.example.yana.weatherservisehome.data.CoordinModel
-import com.example.yana.weatherservisehome.data.CurWeatherModel
-import com.example.yana.weatherservisehome.data.MainCoordinModel
-import com.example.yana.weatherservisehome.data.RetrofitWeather
+import com.example.yana.weatherservisehome.data.*
 import com.example.yana.weatherservisehome.databinding.ActivityMainBinding
 import com.example.yana.weatherservisehome.utils.PermissionUtil
 import com.example.yana.weatherservisehome.utils.PermissionUtil.LOCATION_REQUEST_CODE
@@ -43,8 +41,34 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupListeners()
+//        setupListeners()
+        setupViews()
+        setupRecycler()
         BuildConfig.weather_key
+    }
+
+    private fun setupRecycler() {
+//        val adapter = WeatherAdapter(getData())
+//        recycler.adapter = adapter
+    }
+
+//    private fun getData(): ArrayList<WeatherModel> {
+//        val list = arrayListOf<WeatherModel>()
+//    }
+
+
+    private fun setupViews() {
+        binding.recycView
+        binding.nowView.updateLabel("Now")
+        binding.todayView.updateLabel("Today")
+        binding.todayView.updateWeather("Max")
+        binding.pressureView.updateLabel("Pressure")
+        binding.humidityView.updateLabel("Humidity")
+        binding.cloudView.updateLabel("Cloudiness")
+        binding.sunriceView.updateLabel("Sunrice")
+        binding.sunsetView.updateLabel("Sunset")
+        binding.airIndexView.updateLabel("Air Quality Index")
+        binding.airQualityView.updateLabel("Air Quality")
     }
 
     @SuppressLint("MissingPermission")
@@ -63,32 +87,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupListeners() {
-        binding.btnWeather.setOnClickListener {
-            getCurrentWeather()
-        }
-    }
-
-    private fun getCurrentWeather() {
-        val city = binding.countriesEt.text.toString().trim()
-        RetrofitWeather.getRetrofit()?.getCurrentCoordinates(
-            city = city,
-            appId = BuildConfig.weather_key
-        )?.enqueue(object : Callback<MainCoordinModel> {
-            override fun onResponse(
-                call: Call<MainCoordinModel>,
-                response: Response<MainCoordinModel>
-            ) {
-                if (response.isSuccessful) {
-                    getWeather(response.body()?.coordinates)
-                }
-            }
-
-            override fun onFailure(call: Call<MainCoordinModel>, t: Throwable) {
-
-            }
-        })
-    }
+//    private fun setupListeners() {
+//        binding.btnWeather.setOnClickListener {
+//            getCurrentWeather()
+//
+//        }
+//    }
+//
+//    private fun getCurrentWeather() {
+//        val city = binding.countriesEt.text.toString().trim()
+//        RetrofitWeather.getRetrofit()?.getCurrentCoordinates(
+//            city = city,
+//            appId = BuildConfig.weather_key
+//        )?.enqueue(object : Callback<MainCoordinModel> {
+//            override fun onResponse(
+//                call: Call<MainCoordinModel>,
+//                response: Response<MainCoordinModel>
+//            ) {
+//                if (response.isSuccessful) {
+//                    getWeather(response.body()?.coordinates)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<MainCoordinModel>, t: Throwable) {
+//
+//            }
+//        })
+//    }
 
     @SuppressLint("MissingPermission")
     private fun getLocation() {
@@ -113,22 +138,34 @@ class MainActivity : AppCompatActivity() {
             units = "metric",
             lang = "ru"
 
-        )?.enqueue(object : Callback<CurWeatherModel> {
+        )?.enqueue(object : Callback<MainModel> {
             override fun onResponse(
-                call: Call<CurWeatherModel>,
-                response: Response<CurWeatherModel>
+                call: Call<MainModel>,
+                response: Response<MainModel>
             ) {
                 if (response.isSuccessful) {
                     val data = response.body()
                     binding.countriesTv.text = String.format(
                         resources.getString(R.string.temperature),
-                        data?.temp?.toInt().toString()
+                        data?.currentModel?.temp?.toInt().toString()
                     )
+                    binding.nowView.updateValue(data?.currentModel?.temp.toString())
+                    binding.todayView.updateValue(data?.tempModel?.max.toString())
+                    binding.nowView.updateWeather(data?.currentModel?.feels_like.toString())
+                    binding.windView.updateValue(data?.currentModel?.wind_deg.toString())
+                    binding.pressureView.updateValue(data?.currentModel?.pressure.toString())
+                    binding.humidityView.updateValue(data?.currentModel?.humidity.toString())
+                    binding.cloudView.updateValue(data?.currentModel?.clouds.toString())
+                    binding.sunriceView.updateValue(data?.currentModel?.sunrise.toString())
+                    binding.sunsetView.updateValue(data?.currentModel?.sunset.toString())
+//                    binding.airIndexView.updateValue(data?.currentModel?.)
+//                    binding.airQualityView.updateValue(data?.currentModel?.)
+                    binding.progress.isVisible = false
                 }
 
             }
 
-            override fun onFailure(call: Call<CurWeatherModel>, t: Throwable) {
+            override fun onFailure(call: Call<MainModel>, t: Throwable) {
                 Log.d("aaaaaa", "sssssss")
 
             }
