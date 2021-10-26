@@ -4,7 +4,7 @@
     <string name="may">May</string>
     <string name="_2019">2019</string>
     <string name="serch">Поиск</string>
-    <string name="temperature">%1s °C</string>
+    <string name="temperature">%1s°C</string>
     <string name="title">title</string>
     <string name="now">Now</string>
     <string name="little_cloud">Little Cloud</string>
@@ -21,4 +21,6 @@
     <string name="_30">30</string>
     <string name="good">Good</string>
     <string name="sunset">Sunset</string>
+    <string name="min">Min</string>
+    <string name="city">Введите город</string>
 </resources>

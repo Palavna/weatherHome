@@ -1,23 +1,19 @@
 package com.example.yana.weatherservisehome.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.weatherservisehome.*
 import com.example.yana.weatherservisehome.data.*
+import com.example.yana.weatherservisehome.data.current.CurrentModel
 import com.example.yana.weatherservisehome.databinding.ActivityMainBinding
 import com.example.yana.weatherservisehome.utils.PermissionUtil
 import com.example.yana.weatherservisehome.utils.PermissionUtil.LOCATION_REQUEST_CODE
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,7 +40,6 @@ class MainActivity : AppCompatActivity() {
 //        setupListeners()
         setupViews()
         setupRecycler()
-        BuildConfig.weather_key
     }
 
     private fun setupRecycler() {
@@ -67,8 +62,30 @@ class MainActivity : AppCompatActivity() {
         binding.cloudView.updateLabel("Cloudiness")
         binding.sunriceView.updateLabel("Sunrice")
         binding.sunsetView.updateLabel("Sunset")
-        binding.airIndexView.updateLabel("Air Quality Index")
-        binding.airQualityView.updateLabel("Air Quality")
+    }
+    private fun getCurrentWeather(coordinModel: CoordinModel) {
+        RetrofitWeather.getRetrofit()?.getCurrentWeatherByCoordinates(
+            BuildConfig.weather_key,
+            coordinModel.lat,
+            coordinModel.lon,
+            "metric",
+            "ru"
+        )?.enqueue(object: Callback<CurrentModel>{
+            override fun onResponse(
+                call: Call<CurrentModel>,
+                response: Response<CurrentModel>
+            ) {
+                if(response.isSuccessful){
+                    val data = response.body()
+                    setCurrentWeather(data)
+                }
+            }
+
+            override fun onFailure(call: Call<CurrentModel>, t: Throwable) {
+               Log.d("aaaaaaaa", "sssss")
+            }
+
+        })
     }
 
     @SuppressLint("MissingPermission")
@@ -119,22 +136,36 @@ class MainActivity : AppCompatActivity() {
     private fun getLocation() {
         locationClient?.lastLocation?.addOnCompleteListener {
             if (it.isComplete) {
-                getWeather(
-                    CoordinModel(
-                        it.result.latitude.toFloat(),
-                        it.result.longitude.toFloat()
-                    )
+                val location = CoordinModel(
+                    it.result.latitude.toFloat(),
+                    it.result.longitude.toFloat(),
                 )
+                getCurrentWeather(location)
+                getForecastWeather(location)
             }
         }
     }
 
-    private fun getWeather(coordinates: CoordinModel?) {
-        RetrofitWeather.getRetrofit()?.getWeatherCurrent(
+    private fun setCurrentWeather(data: CurrentModel?) {
+        binding.nowView.updateValue(data?.main?.temp.toString())
+        binding.todayView.updateValue(data?.main?.temp_max.toString())
+        binding.minTemp.setText(data?.main?.temp_min.toString())
+        binding.nowView.updateWeather(data?.main?.feels_like.toString())
+        binding.windView.updateValue(data?.wind?.deg.toString())
+        binding.pressureView.updateValue(data?.main?.pressure.toString())
+        binding.humidityView.updateValue(data?.main?.humidity.toString())
+        binding.cloudView.updateValue(data?.clouds?.all.toString())
+        binding.sunriceView.updateValue(data?.sys?.sunrice.toString())
+        binding.sunsetView.updateValue(data?.sys?.sunset.toString())
+    }
+
+
+    private fun getForecastWeather(coordinates: CoordinModel?) {
+        RetrofitWeather.getRetrofit()?.getWeatherForecast(
             lat = coordinates?.lat.toString(),
             lon = coordinates?.lon.toString(),
             exclude = "minutely,hourly,alerts",
-            appId = "3c3610f480614ecde86c792f6ca681e2",
+            appId = BuildConfig.weather_key,
             units = "metric",
             lang = "ru"
 
@@ -149,17 +180,6 @@ class MainActivity : AppCompatActivity() {
                         resources.getString(R.string.temperature),
                         data?.currentModel?.temp?.toInt().toString()
                     )
-                    binding.nowView.updateValue(data?.currentModel?.temp.toString())
-                    binding.todayView.updateValue(data?.tempModel?.max.toString())
-                    binding.nowView.updateWeather(data?.currentModel?.feels_like.toString())
-                    binding.windView.updateValue(data?.currentModel?.wind_deg.toString())
-                    binding.pressureView.updateValue(data?.currentModel?.pressure.toString())
-                    binding.humidityView.updateValue(data?.currentModel?.humidity.toString())
-                    binding.cloudView.updateValue(data?.currentModel?.clouds.toString())
-                    binding.sunriceView.updateValue(data?.currentModel?.sunrise.toString())
-                    binding.sunsetView.updateValue(data?.currentModel?.sunset.toString())
-//                    binding.airIndexView.updateValue(data?.currentModel?.)
-//                    binding.airQualityView.updateValue(data?.currentModel?.)
                     binding.progress.isVisible = false
                 }
 

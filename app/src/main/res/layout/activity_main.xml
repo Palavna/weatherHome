@@ -88,25 +88,46 @@
 
         <com.example.yana.weatherservisehome.view.ViewWeatherBlock
             android:id="@+id/nowView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@id/todayView"
+            android:paddingEnd="66dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sun" />
+            app:layout_constraintTop_toBottomOf="@id/sun"
+            tools:ignore="RtlSymmetry" />
 
         <com.example.yana.weatherservisehome.view.ViewWeatherBlock
             android:id="@+id/todayView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:paddingEnd="30dp"
             android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/nowView"
-            app:layout_constraintTop_toBottomOf="@id/sun" />
+            app:layout_constraintTop_toBottomOf="@id/sun"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/minTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            app:layout_constraintStart_toEndOf="@+id/todayView"
+            app:layout_constraintTop_toBottomOf="@id/grey"
+            android:layout_marginTop="189dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/min"
+            app:layout_constraintTop_toBottomOf="@id/minTemp"
+            app:layout_constraintStart_toStartOf="@id/minTemp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycView"
@@ -186,28 +207,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/sunriceView"
             app:layout_constraintTop_toBottomOf="@id/cloudView" />
-
-        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
-            android:id="@+id/airIndexView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@id/airQualityView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/sunriceView" />
-
-        <com.example.yana.weatherservisehome.view.ViewWeatherBlock
-            android:id="@+id/airQualityView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/airIndexView"
-            app:layout_constraintTop_toBottomOf="@id/sunsetView" />
 
         <ProgressBar
             android:id="@+id/progress"
