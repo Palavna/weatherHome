@@ -23,4 +23,6 @@
     <string name="sunset">Sunset</string>
     <string name="min">Min</string>
     <string name="city">Введите город</string>
+    <string name="city_key">AIzaSyAG0gYkqiAuT0huqw7lKGpKcu0v7DnUQSQ</string>
+    <string name="search">Search</string>
 </resources>

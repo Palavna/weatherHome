@@ -10,4 +10,5 @@ data class MainCoordinModel (
 data class CoordinModel(
     val lat: Float?,
     val lon: Float?
+
 )

@@ -1,29 +1,46 @@
 package com.example.yana.weatherservisehome.data
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.weatherservisehome.R
+import com.example.yana.weatherservisehome.databinding.ItemWeatherBinding
 
-class WeatherAdapter: RecyclerView.Adapter<WeatherViewHolder>(){
+class WeatherAdapter() : RecyclerView.Adapter<WeatherViewHolder>() {
+
+    private val list = arrayListOf<DailyModel>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_weather, parent, false)
-        return WeatherViewHolder(view)
+        val binding = ItemWeatherBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
+        return WeatherViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: WeatherViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return list.size
     }
 
+    fun addNewItem(dailyModel: List<DailyModel>?) {
+        list.clear()
+        list.addAll(dailyModel ?: emptyList())
+        notifyDataSetChanged()
+    }
 }
 
-class WeatherViewHolder(view: View):RecyclerView.ViewHolder(view){
-    fun bind(){
+class WeatherViewHolder(val binding: ItemWeatherBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    fun bind(dailyModel: DailyModel) {
+        binding.day.text = String.format(
+            "%1s°", dailyModel.tempModel.day.toInt().toString()
+        )
+        binding.nigh.text = String.format(
+            "%1s°", dailyModel.tempModel.night.toInt().toString()
+        )
     }
 }

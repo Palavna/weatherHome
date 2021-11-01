@@ -1,7 +1,6 @@
 package com.example.yana.weatherservisehome.data.current
 
 import com.example.yana.weatherservisehome.data.MainModel
-import com.google.android.gms.awareness.state.Weather
 import com.google.gson.annotations.SerializedName
 
 data class CurrentModel(

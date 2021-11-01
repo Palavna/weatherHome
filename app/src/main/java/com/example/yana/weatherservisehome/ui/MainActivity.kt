@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.weatherservisehome.*
 import com.example.yana.weatherservisehome.data.*
@@ -15,6 +16,10 @@ import com.example.yana.weatherservisehome.utils.PermissionUtil
 import com.example.yana.weatherservisehome.utils.PermissionUtil.LOCATION_REQUEST_CODE
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+//import com.google.android.libraries.places.api.Places
+//import com.google.android.libraries.places.api.model.Place
+//import com.google.android.libraries.places.widget.Autocomplete
+//import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private var locationClient: FusedLocationProviderClient? = null
     private lateinit var recycler: RecyclerView
+    private val adapter = WeatherAdapter()
 
 
     @SuppressLint("MissingPermission")
@@ -37,19 +43,23 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setupListeners()
+        setupListeners()
         setupViews()
         setupRecycler()
+
+        binding.btnSearch.setOnClickListener {
+//            onSearchCalled()
+        }
+    }
+
+    private fun setupListeners() {
+//        adapter.addNewItem()
     }
 
     private fun setupRecycler() {
-//        val adapter = WeatherAdapter(getData())
-//        recycler.adapter = adapter
+       binding.recycView.adapter = adapter
     }
 
-//    private fun getData(): ArrayList<WeatherModel> {
-//        val list = arrayListOf<WeatherModel>()
-//    }
 
 
     private fun setupViews() {
@@ -62,7 +72,25 @@ class MainActivity : AppCompatActivity() {
         binding.cloudView.updateLabel("Cloudiness")
         binding.sunriceView.updateLabel("Sunrice")
         binding.sunsetView.updateLabel("Sunset")
+
+//        if (!Places.isInitialized()) {
+//            Places.initialize(applicationContext, resources.getString(R.string.city_key))
+//        }
     }
+//    fun onSearchCalled(){
+//        val fields: List<Place.Field> = listOf(
+//            Place.Field.ID,
+//            Place.Field.NAME,
+//            Place.Field.ADDRESS,
+//            Place.Field.LAT_LNG,
+//        )
+//        val intent = Autocomplete.IntentBuilder(
+//            AutocompleteActivityMode.FULLSCREEN, fields
+//        ).setCountry("NG")
+//            .build(this)
+//        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+//    }
+
     private fun getCurrentWeather(coordinModel: CoordinModel) {
         RetrofitWeather.getRetrofit()?.getCurrentWeatherByCoordinates(
             BuildConfig.weather_key,
@@ -104,41 +132,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    private fun setupListeners() {
-//        binding.btnWeather.setOnClickListener {
-//            getCurrentWeather()
-//
-//        }
-//    }
-//
-//    private fun getCurrentWeather() {
-//        val city = binding.countriesEt.text.toString().trim()
-//        RetrofitWeather.getRetrofit()?.getCurrentCoordinates(
-//            city = city,
-//            appId = BuildConfig.weather_key
-//        )?.enqueue(object : Callback<MainCoordinModel> {
-//            override fun onResponse(
-//                call: Call<MainCoordinModel>,
-//                response: Response<MainCoordinModel>
-//            ) {
-//                if (response.isSuccessful) {
-//                    getWeather(response.body()?.coordinates)
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<MainCoordinModel>, t: Throwable) {
-//
-//            }
-//        })
-//    }
-
     @SuppressLint("MissingPermission")
     private fun getLocation() {
         locationClient?.lastLocation?.addOnCompleteListener {
             if (it.isComplete) {
                 val location = CoordinModel(
-                    it.result.latitude.toFloat(),
-                    it.result.longitude.toFloat(),
+                    it.result?.latitude?.toFloat(),
+                    it.result?.longitude?.toFloat(),
                 )
                 getCurrentWeather(location)
                 getForecastWeather(location)
@@ -147,10 +147,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setCurrentWeather(data: CurrentModel?) {
-        binding.nowView.updateValue(data?.main?.temp.toString())
-        binding.todayView.updateValue(data?.main?.temp_max.toString())
-        binding.minTemp.setText(data?.main?.temp_min.toString())
-        binding.nowView.updateWeather(data?.main?.feels_like.toString())
+        binding.nowView.updateValue(resources.getString(R.string.temperature,data?.main?.temp.toString()))
+        binding.todayView.updateValue(resources.getString(R.string.temperature,data?.main?.temp_max.toString()))
+        binding.minTemp.setText(resources.getString(R.string.temperature,data?.main?.temp_min.toString()))
+        binding.nowView.updateWeather(resources.getString(R.string.temperature,data?.main?.feels_like.toString()))
         binding.windView.updateValue(data?.wind?.deg.toString())
         binding.pressureView.updateValue(data?.main?.pressure.toString())
         binding.humidityView.updateValue(data?.main?.humidity.toString())
@@ -175,9 +175,10 @@ class MainActivity : AppCompatActivity() {
                 response: Response<MainModel>
             ) {
                 if (response.isSuccessful) {
+                    adapter.addNewItem(response.body()?.dailyModel)
                     val data = response.body()
                     binding.countriesTv.text = String.format(
-                        resources.getString(R.string.temperature),
+                        "%1s°C",
                         data?.currentModel?.temp?.toInt().toString()
                     )
                     binding.progress.isVisible = false
@@ -191,6 +192,9 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+    companion object{
+        const val AUTOCOMPLETE_REQUEST_CODE = 111
     }
 
 }
