@@ -6,6 +6,6 @@ data class Sys(
     @SerializedName("type") val type : Int,
     @SerializedName("id") val id : Int,
     @SerializedName("country") val country : String,
-    @SerializedName("sunrice") val sunrice : Int,
+    @SerializedName("sunrise") val sunrise : Int,
     @SerializedName("sunset") val sunset : Int
 )

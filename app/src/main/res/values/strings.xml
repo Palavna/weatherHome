@@ -5,6 +5,9 @@
     <string name="_2019">2019</string>
     <string name="serch">Поиск</string>
     <string name="temperature">%1s°C</string>
+    <string name="pressureres">%1smb</string>
+    <string name="percent">%1s\%%</string>
+    <string name="veter">SW %1sm/s</string>
     <string name="title">title</string>
     <string name="now">Now</string>
     <string name="little_cloud">Little Cloud</string>
@@ -25,4 +28,5 @@
     <string name="city">Введите город</string>
     <string name="city_key">AIzaSyAG0gYkqiAuT0huqw7lKGpKcu0v7DnUQSQ</string>
     <string name="search">Search</string>
+    <string name="this_week">This Week</string>
 </resources>

@@ -17,9 +17,10 @@
         android:id="@+id/windResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="4dp"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:fontFamily="@font/sf_pro_display"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
@@ -29,6 +30,6 @@
         android:layout_marginTop="4dp"
         android:textColor="@color/black"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="italic" />
 
 </LinearLayout>

@@ -7,6 +7,8 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.weatherservisehome.R
 import com.example.yana.weatherservisehome.databinding.ItemWeatherBinding
+import com.example.yana.weatherservisehome.utils.DateTimeUtils
+import com.squareup.picasso.Picasso
 
 class WeatherAdapter() : RecyclerView.Adapter<WeatherViewHolder>() {
 
@@ -42,5 +44,8 @@ class WeatherViewHolder(val binding: ItemWeatherBinding) : RecyclerView.ViewHold
         binding.nigh.text = String.format(
             "%1s°", dailyModel.tempModel.night.toInt().toString()
         )
+        binding.namber.text = DateTimeUtils.epochTimeToSdfDate(dailyModel.dt.toLong())
+        val icon = dailyModel.weatherModel.firstOrNull()?.icon
+        Picasso.get().load("http://openweathermap.org/img/wn/$icon@2x.png").into(binding.imgWeather)
     }
 }

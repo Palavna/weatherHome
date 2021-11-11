@@ -7,6 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="#B3DFE1E1"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,9 +22,10 @@
                 android:id="@+id/dvaDev"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="16dp"
                 android:layout_marginTop="80dp"
-                android:paddingStart="8dp"
                 android:text="@string/_29"
                 android:textColor="@color/white"
                 android:textSize="62sp"
@@ -36,32 +38,34 @@
                 android:id="@+id/May"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="88dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="98dp"
                 android:text="@string/may"
                 android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="italic"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@id/dvaDev"
                 app:layout_constraintTop_toBottomOf="@id/dvaDev"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tvYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_2019"
+                android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/May"
                 app:layout_constraintTop_toBottomOf="@id/May" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/ic_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/grey" />
@@ -72,9 +76,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginTop="22dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="18sp"
             android:layout_marginEnd="20dp"
             app:layout_constraintTop_toBottomOf="@id/grey" />
-
 
         <ImageView
             android:id="@+id/sun"
@@ -82,7 +88,6 @@
             android:layout_height="80dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="28dp"
-            android:background="@drawable/ic_sun"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/countriesTv" />
 
@@ -91,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="22dp"
             android:layout_marginEnd="8dp"
             android:paddingEnd="66dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,11 +107,11 @@
             android:id="@+id/todayView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="50dp"
             android:paddingEnd="30dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sun"
             tools:ignore="RtlSymmetry" />
 
@@ -115,35 +120,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
-            app:layout_constraintStart_toEndOf="@id/todayView"
-            app:layout_constraintBottom_toTopOf="@id/tvMin"
             android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textSize="24sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@id/tvMin"
+            app:layout_constraintStart_toEndOf="@id/todayView" />
 
         <TextView
             android:id="@+id/tvMin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/todayView"
-            app:layout_constraintBottom_toBottomOf="@id/todayView"
             android:text="@string/min"
             android:textColor="@color/black"
             android:textSize="14sp"
-            android:textStyle="bold"/>
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@id/todayView"
+            app:layout_constraintStart_toEndOf="@id/todayView" />
+
+        <TextView
+            android:id="@+id/thisWeek"
+            app:layout_constraintTop_toTopOf="@id/recycView"
+            app:layout_constraintStart_toStartOf="@id/recycView"
+            android:layout_width="wrap_content"
+            android:text="@string/this_week"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:textSize="12sp"
+            android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="20dp"
-            tools:itemCount="6"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/nowView"
+            tools:itemCount="6"
             tools:listitem="@layout/item_weather" />
 
         <com.example.yana.weatherservisehome.view.ViewWeatherBlock
@@ -191,7 +205,7 @@
             app:layout_constraintTop_toBottomOf="@id/pressureView" />
 
         <com.example.yana.weatherservisehome.view.ViewWeatherBlock
-            android:id="@+id/sunriceView"
+            android:id="@+id/sunrise_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -209,7 +223,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/sunriceView"
+            app:layout_constraintStart_toEndOf="@id/sunrise_view"
             app:layout_constraintTop_toBottomOf="@id/cloudView" />
 
         <ProgressBar
@@ -220,13 +234,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <Button
             android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/search"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
