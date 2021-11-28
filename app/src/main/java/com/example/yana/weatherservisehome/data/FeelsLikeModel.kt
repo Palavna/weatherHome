@@ -7,4 +7,8 @@ data class FeelsLikeModel (
     @SerializedName("night") val night : Double,
     @SerializedName("eve") val eve : Double,
     @SerializedName("morn") val morn : Double
-        )
+        ){
+    constructor():this(
+        2.0, 2.0, 2.0, 2.0
+    )
+}

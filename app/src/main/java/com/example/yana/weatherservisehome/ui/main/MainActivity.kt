@@ -1,10 +1,11 @@
-package com.example.yana.weatherservisehome.ui
+package com.example.yana.weatherservisehome.ui.main
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yana.weatherservisehome.*
@@ -18,6 +19,7 @@ import com.example.yana.weatherservisehome.utils.round
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.squareup.picasso.Picasso
+import org.koin.androidx.viewmodel.ext.android.viewModel
 //import com.google.android.libraries.places.api.Places
 //import com.google.android.libraries.places.api.model.Place
 //import com.google.android.libraries.places.widget.Autocomplete
@@ -25,7 +27,6 @@ import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -34,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     private var locationClient: FusedLocationProviderClient? = null
     private lateinit var recycler: RecyclerView
     private val adapter = WeatherAdapter()
+
+    private val viewModel: MainViewModel by viewModel()
 
 
     @SuppressLint("MissingPermission")
@@ -47,18 +50,41 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setupListeners()
         setupViews()
         setupRecycler()
+        setupViewModel()
         DateTimeUtils.epochTimeToSdfTime()
 
         binding.btnSearch.setOnClickListener {
-//            onSearchCalled()
+            if (binding.etWeatherSerch?.text?.toString()?.trim()?.equals("")!!)
+                else{
+                locationClient?.lastLocation?.addOnCompleteListener {
+                    if (it.isComplete) {
+                        val location = CoordinModel(
+                            it.result?.latitude?.toFloat(),
+                            it.result?.longitude?.toFloat(),
+                        )
+                        viewModel.getCurrentWeather(location)
+                        viewModel.getForecastWeather(location)
+                    }
+                }
+                }
         }
     }
 
-    private fun setupListeners() {
-//        adapter.addNewItem()
+    private fun setupViewModel() {
+        viewModel.iconWeather.observe(this,{
+            Picasso.get().load(it).into(binding.sun)
+        })
+        viewModel.currentWeather.observe(this,{
+            setCurrentWeather(it)
+        })
+        viewModel.progress.observe(this,{
+            binding.progress.isVisible = it
+        })
+        viewModel.forecastWeather.observe(this,{
+            adapter.addNewItem(it)
+        })
     }
 
     private fun setupRecycler() {
@@ -78,56 +104,13 @@ class MainActivity : AppCompatActivity() {
         binding.sunriseView.updateLabel("Sunrise")
         binding.sunsetView.updateLabel("Sunset")
 
-//        if (!Places.isInitialized()) {
-//            Places.initialize(applicationContext, resources.getString(R.string.city_key))
-//        }
     }
-    private fun setupCurrentDate(){
+
+    private fun setupCurrentDate() {
         binding.dvaDev.text = DateTimeUtils.getCurrentDate()
         binding.tvYear.text = DateTimeUtils.getCurrentYear()
         binding.May.text = DateTimeUtils.getCurrentMonth()
 
-    }
-//    fun onSearchCalled(){
-//        val fields: List<Place.Field> = listOf(
-//            Place.Field.ID,
-//            Place.Field.NAME,
-//            Place.Field.ADDRESS,
-//            Place.Field.LAT_LNG,
-//        )
-//        val intent = Autocomplete.IntentBuilder(
-//            AutocompleteActivityMode.FULLSCREEN, fields
-//        ).setCountry("NG")
-//            .build(this)
-//        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
-//    }
-
-    private fun getCurrentWeather(coordinModel: CoordinModel) {
-        RetrofitWeather.getRetrofit()?.getCurrentWeatherByCoordinates(
-            BuildConfig.weather_key,
-            coordinModel.lat,
-            coordinModel.lon,
-            "metric",
-            "ru"
-        )?.enqueue(object : Callback<CurrentModel> {
-            override fun onResponse(
-                call: Call<CurrentModel>,
-                response: Response<CurrentModel>
-            ) {
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    setCurrentWeather(data)
-
-                    val icon = data?.weather?.firstOrNull()?.icon
-                    Picasso.get().load("http://openweathermap.org/img/wn/$icon@2x.png").into(binding.sun)
-                }
-            }
-
-            override fun onFailure(call: Call<CurrentModel>, t: Throwable) {
-                Log.d("aaaaaaaa", "sssss")
-            }
-
-        })
     }
 
 
@@ -155,8 +138,8 @@ class MainActivity : AppCompatActivity() {
                     it.result?.latitude?.toFloat(),
                     it.result?.longitude?.toFloat(),
                 )
-                getCurrentWeather(location)
-                getForecastWeather(location)
+                viewModel.getCurrentWeather(location)
+                viewModel.getForecastWeather(location)
             }
         }
     }
@@ -183,45 +166,19 @@ class MainActivity : AppCompatActivity() {
         )
         binding.countriesTv.text = data?.name
         binding.windView.updateValue(
-            resources.getString(R.string.veter,data?.wind?.speed.toString()))
+            resources.getString(R.string.veter, data?.wind?.speed.toString())
+        )
         binding.pressureView.updateValue(
-        resources.getString(R.string.pressureres, data?.main?.pressure.toString()))
+            resources.getString(R.string.pressureres, data?.main?.pressure.toString())
+        )
         binding.humidityView.updateValue(
-        resources.getString(R.string.percent,data?.main?.humidity.toString()))
+            resources.getString(R.string.percent, data?.main?.humidity.toString())
+        )
         binding.cloudView.updateValue(
-            resources.getString(R.string.percent, data?.clouds?.all.toString()))
+            resources.getString(R.string.percent, data?.clouds?.all.toString())
+        )
         binding.sunriseView.updateValue(DateTimeUtils.epochTimeToSdfTime(data?.sys?.sunrise?.toLong()))
         binding.sunsetView.updateValue(DateTimeUtils.epochTimeToSdfTime(data?.sys?.sunset?.toLong()))
-    }
-
-    private fun getForecastWeather(coordinates: CoordinModel?) {
-        RetrofitWeather.getRetrofit()?.getWeatherForecast(
-            lat = coordinates?.lat.toString(),
-            lon = coordinates?.lon.toString(),
-            exclude = "minutely,hourly,alerts",
-            appId = BuildConfig.weather_key,
-            units = "metric",
-            lang = "ru"
-
-        )?.enqueue(object : Callback<MainModel> {
-            override fun onResponse(
-                call: Call<MainModel>,
-                response: Response<MainModel>
-            ) {
-                if (response.isSuccessful) {
-                    adapter.addNewItem(response.body()?.dailyModel)
-                    val data = response.body()
-                    binding.progress.isVisible = false
-                }
-
-            }
-
-            override fun onFailure(call: Call<MainModel>, t: Throwable) {
-                Log.d("aaaaaa", "sssssss")
-
-            }
-
-        })
     }
 
     companion object {

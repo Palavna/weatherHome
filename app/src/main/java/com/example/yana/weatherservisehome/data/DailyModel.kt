@@ -17,8 +17,13 @@ data class DailyModel (
     @SerializedName("wind_speed") val wind_speed: Double,
     @SerializedName("wind_deg") val wind_deg: Int,
     @SerializedName("wind_gust") val wind_gust: Double,
-    @SerializedName("weather") val weatherModel: List<WeatherModel>,
+    @SerializedName("weather") val weatherModel: List<WeatherModel>?,
     @SerializedName("clouds") val clouds: Int,
     @SerializedName("pop") val pop: Float,
     @SerializedName("uvi") val uvi: Double
-        )
+        ){
+//    constructor():this(
+//        1, 1, 1, 1, 1, 2.0, TempModel(), FeelsLikeModel(), 1, 1,
+//        2.0, 2.0, 1, 2.0, arrayListOf(), 1, 1F, 2.0
+//    )
+}

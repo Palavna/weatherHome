@@ -45,7 +45,7 @@ class WeatherViewHolder(val binding: ItemWeatherBinding) : RecyclerView.ViewHold
             "%1s°", dailyModel.tempModel.night.toInt().toString()
         )
         binding.namber.text = DateTimeUtils.epochTimeToSdfDate(dailyModel.dt.toLong())
-        val icon = dailyModel.weatherModel.firstOrNull()?.icon
+        val icon = dailyModel.weatherModel?.firstOrNull()?.icon
         Picasso.get().load("http://openweathermap.org/img/wn/$icon@2x.png").into(binding.imgWeather)
     }
 }

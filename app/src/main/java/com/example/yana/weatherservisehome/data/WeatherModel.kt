@@ -7,7 +7,12 @@ data class WeatherModel(
     @SerializedName("main") val main: String,
     @SerializedName("description") val description: String,
     @SerializedName("icon") val icon: String,
-    @SerializedName("image") val image: String)
+    @SerializedName("image") val image: String
+    ){
+    constructor():this(
+        "", "","", "",""
+    )
+}
 
 
 data class EveryDay(

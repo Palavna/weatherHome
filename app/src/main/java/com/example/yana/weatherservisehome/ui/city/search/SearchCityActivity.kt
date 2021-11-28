@@ -1,15 +1,16 @@
-package com.example.yana.weatherservisehome.ui
+package com.example.yana.weatherservisehome.ui.city.search
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.widget.doAfterTextChanged
 import com.example.yana.weatherservisehome.data.CitiesTextModel
 import com.example.yana.weatherservisehome.databinding.ActivitySearchCityBinding
+import com.example.yana.weatherservisehome.ui.CitiesAdapter
 
 class SearchCityActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchCityBinding
-    private val adapter by lazy { CitiesAdapter()}
+    private val adapter by lazy { CitiesAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

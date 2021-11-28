@@ -1,12 +1,9 @@
 package com.example.yana.weatherservisehome.utils
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.example.yana.weatherservisehome.data.CoordinModel
-import com.example.yana.weatherservisehome.ui.MainActivity
 
 object PermissionUtil {
 

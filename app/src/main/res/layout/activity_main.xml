@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:background="#666568"
             app:layout_constraintTop_toTopOf="parent"
-            tools:context=".ui.MainActivity">
+            tools:context=".ui.main.MainActivity">
 
             <TextView
                 android:id="@+id/dvaDev"
@@ -226,6 +226,12 @@
             app:layout_constraintStart_toEndOf="@id/sunrise_view"
             app:layout_constraintTop_toBottomOf="@id/cloudView" />
 
+        <EditText
+            android:id="@+id/etWeatherSerch"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/sunrise_view"
+            android:layout_height="wrap_content"/>
+
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="wrap_content"
@@ -241,7 +247,8 @@
             android:layout_height="wrap_content"
             android:text="@string/search"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/etWeatherSerch"
+            app:layout_constraintStart_toStartOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

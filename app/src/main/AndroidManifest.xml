@@ -12,16 +12,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".WeatherApp"
         android:theme="@style/Theme.WeatherServiseHome"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.SearchCityActivity"
+            android:name=".ui.city.search.SearchCityActivity"
             android:exported="true" >
 
         </activity>
 
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
