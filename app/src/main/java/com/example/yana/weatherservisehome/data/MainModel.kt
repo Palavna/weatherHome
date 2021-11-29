@@ -16,6 +16,6 @@ data class MainModel (
     @Embedded
     @SerializedName("current") val currentModel: CurWeatherModel,
     @Embedded
-    @SerializedName("tempModel") val tempModel: TempModel,
+    @SerializedName("tempModel") val tempModel: TempModel?,
     @SerializedName("daily") val dailyModel: List<DailyModel>? = emptyList()
     )

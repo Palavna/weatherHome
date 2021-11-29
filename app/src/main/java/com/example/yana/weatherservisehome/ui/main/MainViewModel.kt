@@ -8,13 +8,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.yana.weatherservisehome.BuildConfig
 import com.example.yana.weatherservisehome.data.*
 import com.example.yana.weatherservisehome.data.current.CurrentModel
+import com.example.yana.weatherservisehome.data.db.WeatherDao
+import com.example.yana.weatherservisehome.data.db.WeatherRepository
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainViewModel(private val service: WeatherInteractor): ViewModel() {
+class MainViewModel(private val repository: WeatherRepository): ViewModel() {
 
     val forecastWeather = MutableLiveData<List<DailyModel>?>()
     val progress = MutableLiveData(true)
@@ -24,7 +26,7 @@ class MainViewModel(private val service: WeatherInteractor): ViewModel() {
     fun getForecastWeather(coordinates: CoordinModel?) {
         viewModelScope.launch {
             runCatching {
-                val result = service.getForecastWeather(
+                val result = repository.getForecastWeather(
                     lat = coordinates?.lat,
                     lng = coordinates?.lon
                 )
@@ -39,7 +41,7 @@ class MainViewModel(private val service: WeatherInteractor): ViewModel() {
     fun getCurrentWeather(coordinModel: CoordinModel) {
         viewModelScope.launch {
             runCatching {
-                val result = service.getCurrentWeather(
+                val result = repository.getCurrentWeather(
                     coordinModel.lat,
                     coordinModel.lon,
                 )

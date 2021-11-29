@@ -39,10 +39,10 @@ class WeatherViewHolder(val binding: ItemWeatherBinding) : RecyclerView.ViewHold
 
     fun bind(dailyModel: DailyModel) {
         binding.day.text = String.format(
-            "%1s°", dailyModel.tempModel.day.toInt().toString()
+            "%1s°", dailyModel.tempModel?.day?.toInt().toString()
         )
         binding.nigh.text = String.format(
-            "%1s°", dailyModel.tempModel.night.toInt().toString()
+            "%1s°", dailyModel.tempModel?.night?.toInt().toString()
         )
         binding.namber.text = DateTimeUtils.epochTimeToSdfDate(dailyModel.dt.toLong())
         val icon = dailyModel.weatherModel?.firstOrNull()?.icon

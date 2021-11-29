@@ -9,7 +9,7 @@ data class DailyModel (
     @SerializedName("moonrise") val moonrise: Int,
     @SerializedName("moonset") val moonset: Int,
     @SerializedName("moon_phase") val moon_phase: Double,
-    @SerializedName("temp") val tempModel: TempModel,
+    @SerializedName("temp") val tempModel: TempModel?,
     @SerializedName("feels_like") val feels_likeModel: FeelsLikeModel,
     @SerializedName("pressure") val pressure: Int,
     @SerializedName("humidity") val humidity: Int,
